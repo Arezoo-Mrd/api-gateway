@@ -32,13 +32,16 @@ env:
   # To get a permanent token, refer to https://github.com/redhat-actions/oc-login/wiki/Using-a-Service-Account-for-GitHub-Actions
   OPENSHIFT_SERVER: ${{ secrets.OPENSHIFT_SERVER }}
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
+
   # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
-  # Line ~35 in openshift.yml — edit these:
-  OPENSHIFT_NAMESPACE: ""   # your OCP project name
-  APP_NAME: "api-gateway-guide"         # any name you want
-  APP_PORT: "8080"                      # must match EXPOSE in Dockerfile
-  # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
-  # APP_NAME: ""
+  # On OpenShift Developer Sandbox this is your username (e.g. arezoo-mrd-dev)
+  OPENSHIFT_NAMESPACE: ""
+
+  # ✅ FIXED: explicit app name — must be lowercase letters, numbers, hyphens only
+  APP_NAME: "api-gateway-guide"
+
+  # ✅ FIXED: port nginx listens on (must match EXPOSE in Dockerfile)
+  APP_PORT: "8080"
 
   # 🖊️ EDIT to change the image registry settings.
   # Registries such as GHCR, Quay.io, and Docker Hub are supported.
@@ -57,22 +60,7 @@ on:
     branches: [ "main" ]
 
 jobs:
-  # 🖊️ EDIT if you want to run vulnerability check on your project before deploying
-  # the application. Please uncomment the below CRDA scan job and configure to run it in
-  # your workflow. For details about CRDA action visit https://github.com/redhat-actions/crda/blob/main/README.md
-  #
-  # TODO: Make sure to add 'CRDA Scan' starter workflow from the 'Actions' tab.
-  # For guide on adding new starter workflow visit https://docs.github.com/en/github-ae@latest/actions/using-workflows/using-starter-workflows
-
-  #crda-scan:
-  #  uses: ./.github/workflows/crda.yml
-  #  secrets:
-  #    CRDA_KEY: ${{ secrets.CRDA_KEY }}
-  #    # SNYK_TOKEN: ${{ secrets.SNYK_TOKEN }}       # Either use SNYK_TOKEN or CRDA_KEY
-
   openshift-ci-cd:
-    # 🖊️ Uncomment this if you are using CRDA scan step above
-    # needs: crda-scan
     name: Build and deploy to OpenShift
     runs-on: ubuntu-latest
     environment: production
@@ -123,11 +111,6 @@ jobs:
     - name: Check out repository
       uses: actions/checkout@v4
 
-    - name: Determine app name
-      if: env.APP_NAME == ''
-      run: |
-        echo "APP_NAME=$(basename $PWD)" | tee -a $GITHUB_ENV
-
     - name: Determine image tags
       if: env.IMAGE_TAGS == ''
       run: |
@@ -140,10 +123,6 @@ jobs:
       with:
         image: ${{ env.APP_NAME }}
         tags: ${{ env.IMAGE_TAGS }}
-
-        # If you don't have a Dockerfile/Containerfile, refer to https://github.com/redhat-actions/buildah-build#scratch-build-inputs
-        # Or, perform a source-to-image build using https://github.com/redhat-actions/s2i-build
-        # Otherwise, point this to your Dockerfile/Containerfile relative to the repository root.
         dockerfiles: |
           ./Dockerfile
 
@@ -157,8 +136,6 @@ jobs:
         registry: ${{ env.IMAGE_REGISTRY }}
         username: ${{ env.IMAGE_REGISTRY_USER }}
         password: ${{ env.IMAGE_REGISTRY_PASSWORD }}
-
-    # The path the image was pushed to is now stored in ${{ steps.push-image.outputs.registry-path }}
 
     - name: Install oc
       uses: redhat-actions/openshift-tools-installer@v1
@@ -174,7 +151,6 @@ jobs:
         insecure_skip_tls_verify: true
         namespace: ${{ env.OPENSHIFT_NAMESPACE }}
 
-    # This step should create a deployment, service, and route to run your app and expose it to the internet.
     # https://github.com/redhat-actions/oc-new-app#readme
     - name: Create and expose app
       id: deploy-and-expose
