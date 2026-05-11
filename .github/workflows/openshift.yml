@@ -8,9 +8,6 @@ env:
   APP_NAME: "api-gateway-guide"
   APP_PORT: "8080"
 
-  # ✅ FIX: GHCR rejects uppercase letters in image paths.
-  # github.repository_owner = "Arezoo-Mrd" → podman rejects it.
-  # We hardcode lowercase here instead.
   IMAGE_REGISTRY: ghcr.io/arezoo-mrd
   IMAGE_REGISTRY_USER: ${{ github.actor }}
   IMAGE_REGISTRY_PASSWORD: ${{ github.token }}
@@ -21,6 +18,11 @@ on:
   workflow_dispatch:
   push:
     branches: [ "main" ]
+
+# ✅ FIX 1: grant GITHUB_TOKEN permission to push packages to GHCR
+permissions:
+  contents: read
+  packages: write
 
 jobs:
   openshift-ci-cd:
