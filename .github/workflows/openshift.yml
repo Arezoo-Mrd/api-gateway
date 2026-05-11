@@ -34,8 +34,8 @@ env:
   OPENSHIFT_TOKEN: ${{ secrets.OPENSHIFT_TOKEN }}
   # 🖊️ EDIT to set the kube context's namespace after login. Leave blank to use your user's default namespace.
   # Line ~35 in openshift.yml — edit these:
-  OPENSHIFT_NAMESPACE: "api-gateway"   # your OCP project name
-  APP_NAME: "api-gateway-guide"         # any name you want
+  OPENSHIFT_NAMESPACE: "arezoo-test"   # your OCP project name
+  APP_NAME: "api-gateway"         # any name you want
   APP_PORT: "8080"                      # must match EXPOSE in Dockerfile
   # 🖊️ EDIT to set a name for your OpenShift app, or a default one will be generated below.
   # APP_NAME: ""
