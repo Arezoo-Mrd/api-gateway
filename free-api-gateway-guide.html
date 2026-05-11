@@ -1,0 +1,1861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Free API Gateways — Complete Guide & Comparison 2026</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Mono:wght@400;500&family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&display=swap" rel="stylesheet">
+<style>
+:root {
+  --bg: #0a0a0f;
+  --bg2: #111118;
+  --bg3: #181820;
+  --border: rgba(255,255,255,0.07);
+  --border2: rgba(255,255,255,0.12);
+  --text: #e8e8f0;
+  --muted: #7a7a96;
+  --faint: #3a3a54;
+  --accent: #6ee7b7;
+  --accent2: #818cf8;
+  --accent3: #f472b6;
+  --accent4: #fb923c;
+  --accent5: #38bdf8;
+  --yellow: #fbbf24;
+  --font-head: 'Syne', sans-serif;
+  --font-body: 'DM Sans', sans-serif;
+  --font-mono: 'DM Mono', monospace;
+}
+
+* { margin:0; padding:0; box-sizing:border-box; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 15px;
+  line-height: 1.7;
+}
+
+/* ── HERO ── */
+.hero {
+  padding: 80px 48px 64px;
+  border-bottom: 1px solid var(--border);
+  position: relative;
+  overflow: hidden;
+}
+.hero::before {
+  content: '';
+  position: absolute;
+  top: -120px; left: -80px;
+  width: 600px; height: 600px;
+  background: radial-gradient(circle, rgba(110,231,183,0.07) 0%, transparent 70%);
+  pointer-events: none;
+}
+.hero::after {
+  content: '';
+  position: absolute;
+  top: -60px; right: -40px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(129,140,248,0.06) 0%, transparent 70%);
+  pointer-events: none;
+}
+.tag {
+  display: inline-block;
+  font-family: var(--font-mono);
+  font-size: 11px;
+  letter-spacing: .1em;
+  color: var(--accent);
+  border: 1px solid rgba(110,231,183,0.3);
+  padding: 4px 12px;
+  border-radius: 4px;
+  margin-bottom: 20px;
+  text-transform: uppercase;
+}
+.hero h1 {
+  font-family: var(--font-head);
+  font-size: clamp(32px, 5vw, 58px);
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -.02em;
+  max-width: 700px;
+  margin-bottom: 20px;
+}
+.hero h1 em { font-style: normal; color: var(--accent); }
+.hero p {
+  max-width: 580px;
+  color: var(--muted);
+  font-size: 16px;
+  line-height: 1.65;
+  font-weight: 300;
+}
+.hero-stats {
+  display: flex;
+  gap: 40px;
+  margin-top: 40px;
+  flex-wrap: wrap;
+}
+.stat { }
+.stat-n {
+  font-family: var(--font-head);
+  font-size: 28px;
+  font-weight: 700;
+  color: var(--accent2);
+}
+.stat-l {
+  font-size: 12px;
+  color: var(--muted);
+  font-family: var(--font-mono);
+}
+
+/* ── LAYOUT ── */
+.container { max-width: 960px; margin: 0 auto; padding: 0 32px; }
+
+/* ── WHAT IS ── */
+.what-is {
+  padding: 64px 0;
+  border-bottom: 1px solid var(--border);
+}
+.section-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .15em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.section-label::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: var(--border);
+}
+.what-is h2 {
+  font-family: var(--font-head);
+  font-size: 26px;
+  font-weight: 700;
+  margin-bottom: 16px;
+}
+.flow-diagram {
+  display: flex;
+  align-items: center;
+  gap: 0;
+  margin: 36px 0;
+  flex-wrap: wrap;
+  gap: 0;
+}
+.flow-box {
+  background: var(--bg3);
+  border: 1px solid var(--border2);
+  border-radius: 8px;
+  padding: 16px 20px;
+  text-align: center;
+  flex: 1;
+  min-width: 100px;
+}
+.flow-box .fb-icon {
+  font-size: 22px;
+  margin-bottom: 6px;
+  display: block;
+}
+.flow-box .fb-label {
+  font-size: 12px;
+  font-family: var(--font-mono);
+  color: var(--muted);
+}
+.flow-box .fb-name {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--text);
+  margin-top: 2px;
+}
+.flow-box.gw {
+  border-color: var(--accent);
+  background: rgba(110,231,183,0.05);
+}
+.flow-box.gw .fb-name { color: var(--accent); }
+.flow-arrow {
+  font-size: 18px;
+  color: var(--faint);
+  padding: 0 8px;
+  flex-shrink: 0;
+}
+.features-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 24px;
+}
+.feat-item {
+  background: var(--bg3);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px;
+}
+.feat-icon { font-size: 20px; margin-bottom: 8px; display: block; }
+.feat-title { font-size: 13px; font-weight: 500; margin-bottom: 4px; }
+.feat-desc { font-size: 12px; color: var(--muted); line-height: 1.5; }
+
+/* ── GATEWAYS ── */
+.gateways { padding: 64px 0; border-bottom: 1px solid var(--border); }
+.gateways h2 {
+  font-family: var(--font-head);
+  font-size: 26px; font-weight: 700;
+  margin-bottom: 8px;
+}
+.gateways .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 32px; }
+
+.gw-card {
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  margin-bottom: 16px;
+  overflow: hidden;
+  transition: border-color .2s;
+}
+.gw-card:hover { border-color: var(--border2); }
+.gw-header {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 16px;
+  padding: 20px 24px;
+  cursor: pointer;
+  border-bottom: 1px solid transparent;
+  transition: border-color .2s;
+}
+.gw-card.open .gw-header { border-bottom-color: var(--border); }
+.gw-num {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  color: var(--faint);
+  width: 24px;
+}
+.gw-meta { }
+.gw-name {
+  font-family: var(--font-head);
+  font-size: 18px;
+  font-weight: 700;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+.gw-tagline { font-size: 13px; color: var(--muted); margin-top: 2px; }
+.gw-badges { display: flex; gap: 6px; flex-wrap: wrap; align-items: center; }
+.badge {
+  font-size: 10px;
+  font-family: var(--font-mono);
+  padding: 3px 8px;
+  border-radius: 4px;
+  border: 1px solid;
+  white-space: nowrap;
+}
+.b-perf { color: #6ee7b7; border-color: rgba(110,231,183,0.3); background: rgba(110,231,183,0.06); }
+.b-easy { color: #818cf8; border-color: rgba(129,140,248,0.3); background: rgba(129,140,248,0.06); }
+.b-full { color: #f472b6; border-color: rgba(244,114,182,0.3); background: rgba(244,114,182,0.06); }
+.b-k8s  { color: #38bdf8; border-color: rgba(56,189,248,0.3); background: rgba(56,189,248,0.06); }
+.b-bff  { color: #fb923c; border-color: rgba(251,146,60,0.3); background: rgba(251,146,60,0.06); }
+.b-eu   { color: #a78bfa; border-color: rgba(167,139,250,0.3); background: rgba(167,139,250,0.06); }
+.b-oss  { color: #fbbf24; border-color: rgba(251,191,36,0.3); background: rgba(251,191,36,0.06); }
+.b-mesh { color: #34d399; border-color: rgba(52,211,153,0.3); background: rgba(52,211,153,0.06); }
+.chevron { color: var(--muted); font-size: 14px; transition: transform .25s; }
+.gw-card.open .chevron { transform: rotate(180deg); }
+
+.gw-body {
+  display: none;
+  padding: 24px;
+  grid-template-columns: 1fr 1fr;
+  gap: 24px;
+}
+.gw-card.open .gw-body { display: grid; }
+
+.gw-desc { font-size: 14px; color: #b0b0c8; line-height: 1.65; margin-bottom: 16px; grid-column: 1 / -1; }
+
+.gw-section-title {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .1em;
+  color: var(--muted);
+  text-transform: uppercase;
+  margin-bottom: 10px;
+}
+.pro-con-list { list-style: none; }
+.pro-con-list li {
+  font-size: 13px;
+  padding: 4px 0;
+  display: flex;
+  gap: 8px;
+  align-items: flex-start;
+}
+.pro-con-list li span { line-height: 1.45; }
+.pro { color: var(--accent); }
+.con { color: #f87171; }
+
+.spec-table { width: 100%; border-collapse: collapse; }
+.spec-table td {
+  font-size: 12px;
+  padding: 5px 0;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+}
+.spec-table td:first-child {
+  color: var(--muted);
+  font-family: var(--font-mono);
+  width: 40%;
+  padding-right: 10px;
+}
+.spec-table td:last-child { color: var(--text); font-weight: 500; }
+
+/* ── COMPARE TABLE ── */
+.compare { padding: 64px 0; border-bottom: 1px solid var(--border); }
+.compare h2 { font-family: var(--font-head); font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+.compare .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+.table-wrap { overflow-x: auto; border: 1px solid var(--border); border-radius: 10px; }
+table.comp {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 12px;
+  min-width: 740px;
+}
+table.comp th, table.comp td {
+  padding: 10px 14px;
+  text-align: left;
+  border-bottom: 1px solid var(--border);
+  vertical-align: middle;
+}
+table.comp th {
+  background: var(--bg3);
+  font-family: var(--font-mono);
+  font-size: 10px;
+  letter-spacing: .08em;
+  color: var(--muted);
+  text-transform: uppercase;
+  font-weight: 500;
+}
+table.comp th:first-child,
+table.comp td:first-child {
+  font-weight: 600;
+  color: var(--text);
+  background: var(--bg3);
+  position: sticky;
+  left: 0;
+  z-index: 1;
+  border-right: 1px solid var(--border);
+  min-width: 100px;
+}
+table.comp tbody tr:last-child td { border-bottom: none; }
+table.comp tbody tr:hover td { background: rgba(255,255,255,0.02); }
+table.comp tbody tr:hover td:first-child { background: var(--bg3); }
+.y { color: #6ee7b7; font-size: 15px; }
+.n { color: #3a3a54; font-size: 15px; }
+.p { color: var(--yellow); font-size: 15px; }
+.perf-bar {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.bar {
+  height: 4px;
+  border-radius: 2px;
+  background: linear-gradient(90deg, var(--accent), var(--accent2));
+}
+
+/* ── PICK GUIDE ── */
+.pick { padding: 64px 0; border-bottom: 1px solid var(--border); }
+.pick h2 { font-family: var(--font-head); font-size: 26px; font-weight: 700; margin-bottom: 8px; }
+.pick .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+.scenarios { display: grid; gap: 10px; }
+.scenario {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  align-items: center;
+  gap: 20px;
+  background: var(--bg2);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 16px 20px;
+  transition: border-color .2s;
+}
+.scenario:hover { border-color: var(--border2); }
+.sc-if { font-size: 13px; color: var(--muted); margin-bottom: 3px; font-family: var(--font-mono); font-size: 10px; text-transform: uppercase; letter-spacing: .1em; }
+.sc-then { font-size: 14px; font-weight: 500; }
+.sc-pick {
+  font-family: var(--font-head);
+  font-size: 14px;
+  font-weight: 700;
+  white-space: nowrap;
+  padding: 6px 14px;
+  border-radius: 6px;
+  border: 1px solid;
+}
+.sc-kong   { color: #6ee7b7; border-color: rgba(110,231,183,.3); background: rgba(110,231,183,.07); }
+.sc-apisix { color: #818cf8; border-color: rgba(129,140,248,.3); background: rgba(129,140,248,.07); }
+.sc-tyk    { color: #f472b6; border-color: rgba(244,114,182,.3); background: rgba(244,114,182,.07); }
+.sc-krakend{ color: #fb923c; border-color: rgba(251,146,60,.3);  background: rgba(251,146,60,.07);  }
+.sc-gravitee{color: #a78bfa; border-color: rgba(167,139,250,.3); background: rgba(167,139,250,.07); }
+.sc-envoy  { color: #38bdf8; border-color: rgba(56,189,248,.3);  background: rgba(56,189,248,.07);  }
+.sc-traefik{ color: #fbbf24; border-color: rgba(251,191,36,.3);  background: rgba(251,191,36,.07);  }
+
+/* ── FOOTER ── */
+.footer {
+  padding: 40px 48px;
+  border-top: 1px solid var(--border);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+.footer-note { font-size: 12px; color: var(--faint); font-family: var(--font-mono); }
+
+/* ── AUTH / PERF / SCALE SECTIONS ── */
+.deep { padding: 64px 0; border-bottom: 1px solid var(--border); }
+.deep h2 { font-family: var(--font-head); font-size: 26px; font-weight: 700; margin-bottom: 6px; }
+.deep .subtitle { color: var(--muted); font-size: 14px; margin-bottom: 28px; }
+
+/* auth method cards */
+.auth-methods { display: grid; grid-template-columns: repeat(auto-fit, minmax(180px,1fr)); gap:10px; margin-bottom:32px; }
+.auth-card { background:var(--bg3); border:1px solid var(--border); border-radius:10px; padding:14px 16px; }
+.auth-icon { font-size:20px; margin-bottom:6px; display:block; }
+.auth-name { font-size:13px; font-weight:600; margin-bottom:3px; }
+.auth-desc { font-size:11px; color:var(--muted); line-height:1.5; }
+
+/* support matrix */
+.matrix-wrap { overflow-x:auto; border:1px solid var(--border); border-radius:10px; margin-bottom:20px; }
+table.matrix { width:100%; border-collapse:collapse; font-size:12px; min-width:640px; }
+table.matrix th, table.matrix td { padding:9px 12px; border-bottom:1px solid var(--border); text-align:center; vertical-align:middle; }
+table.matrix th { background:var(--bg3); font-family:var(--font-mono); font-size:10px; letter-spacing:.08em; color:var(--muted); text-transform:uppercase; font-weight:500; }
+table.matrix td:first-child { text-align:left; font-weight:500; color:var(--text); background:var(--bg3); position:sticky; left:0; z-index:1; border-right:1px solid var(--border); min-width:110px; }
+table.matrix th:first-child { text-align:left; position:sticky; left:0; z-index:2; }
+table.matrix tbody tr:last-child td { border-bottom:none; }
+table.matrix tbody tr:hover td { background:rgba(255,255,255,0.02); }
+table.matrix tbody tr:hover td:first-child { background:var(--bg3); }
+
+/* perf bars */
+.perf-grid { display:grid; gap:10px; margin-bottom:24px; }
+.perf-row { background:var(--bg2); border:1px solid var(--border); border-radius:8px; padding:14px 18px; display:grid; grid-template-columns:100px 1fr auto; align-items:center; gap:16px; }
+.perf-gw { font-size:13px; font-weight:600; }
+.perf-track { background:var(--bg3); border-radius:4px; height:8px; overflow:hidden; position:relative; }
+.perf-fill { height:100%; border-radius:4px; }
+.perf-fill.f-apisix  { background:linear-gradient(90deg,#6ee7b7,#34d399); }
+.perf-fill.f-krakend { background:linear-gradient(90deg,#818cf8,#6366f1); }
+.perf-fill.f-envoy   { background:linear-gradient(90deg,#38bdf8,#0ea5e9); }
+.perf-fill.f-kong    { background:linear-gradient(90deg,#fbbf24,#f59e0b); }
+.perf-fill.f-tyk     { background:linear-gradient(90deg,#f472b6,#ec4899); }
+.perf-fill.f-traefik { background:linear-gradient(90deg,#fb923c,#f97316); }
+.perf-fill.f-gravitee{ background:linear-gradient(90deg,#a78bfa,#8b5cf6); }
+.perf-val { font-family:var(--font-mono); font-size:12px; color:var(--muted); white-space:nowrap; }
+
+/* latency pills */
+.lat-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(120px,1fr)); gap:10px; margin-bottom:28px; }
+.lat-card { background:var(--bg3); border:1px solid var(--border); border-radius:8px; padding:12px 14px; text-align:center; }
+.lat-val { font-family:var(--font-head); font-size:22px; font-weight:700; }
+.lat-gw  { font-size:11px; color:var(--muted); margin-top:2px; font-family:var(--font-mono); }
+.lat-good { color:var(--accent); }
+.lat-mid  { color:var(--yellow); }
+.lat-slow { color:#f87171; }
+
+/* scale cards */
+.scale-grid { display:grid; grid-template-columns:1fr 1fr; gap:12px; }
+.scale-card { background:var(--bg2); border:1px solid var(--border); border-radius:10px; padding:18px 20px; }
+.scale-title { font-size:14px; font-weight:600; margin-bottom:4px; }
+.scale-model { font-family:var(--font-mono); font-size:10px; color:var(--muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:10px; }
+.scale-bar-wrap { margin:6px 0 4px; }
+.scale-label { font-size:11px; color:var(--muted); margin-bottom:3px; display:flex; justify-content:space-between; }
+.scale-track { background:var(--bg3); height:6px; border-radius:3px; overflow:hidden; }
+.scale-fill { height:100%; border-radius:3px; }
+.s-green  { background:linear-gradient(90deg,#6ee7b7,#34d399); }
+.s-blue   { background:linear-gradient(90deg,#818cf8,#6366f1); }
+.s-pink   { background:linear-gradient(90deg,#f472b6,#ec4899); }
+.s-amber  { background:linear-gradient(90deg,#fbbf24,#f59e0b); }
+.s-sky    { background:linear-gradient(90deg,#38bdf8,#0ea5e9); }
+.s-purple { background:linear-gradient(90deg,#a78bfa,#8b5cf6); }
+.s-orange { background:linear-gradient(90deg,#fb923c,#f97316); }
+.scale-note { font-size:12px; color:var(--muted); margin-top:10px; line-height:1.5; }
+
+@media (max-width: 640px) { .scale-grid { grid-template-columns:1fr; } }
+
+@media (max-width: 640px) {
+  .hero { padding: 48px 24px 40px; }
+  .container { padding: 0 20px; }
+  .gw-body { grid-template-columns: 1fr; }
+  .gw-desc { grid-column: auto; }
+  .gw-header { grid-template-columns: auto 1fr auto; }
+  .gw-badges { display: none; }
+}
+</style>
+</head>
+<body>
+
+<!-- HERO -->
+<div class="hero">
+  <div class="tag">2026 Edition · Open Source Only</div>
+  <h1>Free <em>API Gateways</em><br>Complete Guide</h1>
+  <p>Everything you need to understand what an API gateway is, how it works, and which free/open-source option fits your stack — from startup to enterprise.</p>
+  <div class="hero-stats">
+    <div class="stat">
+      <div class="stat-n">7</div>
+      <div class="stat-l">gateways compared</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">100%</div>
+      <div class="stat-l">free to self-host</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">70K+</div>
+      <div class="stat-l">RPS max throughput</div>
+    </div>
+    <div class="stat">
+      <div class="stat-n">&lt;1ms</div>
+      <div class="stat-l">best latency overhead</div>
+    </div>
+  </div>
+</div>
+
+<!-- WHAT IS AN API GATEWAY -->
+<div class="what-is">
+  <div class="container">
+    <div class="section-label">What is it</div>
+    <h2>How an API Gateway works</h2>
+    <p style="color:var(--muted); font-size:14px; max-width:620px; margin-bottom: 8px;">
+      An API gateway is a server that sits between your clients and your backend services. Every request passes through it — so you get one place to handle auth, rate limiting, logging, routing, and more, instead of coding those things into every service.
+    </p>
+
+    <div class="flow-diagram">
+      <div class="flow-box">
+        <span class="fb-icon">📱</span>
+        <div class="fb-label">client</div>
+        <div class="fb-name">Apps / Browsers</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box gw">
+        <span class="fb-icon">🛡️</span>
+        <div class="fb-label">gateway</div>
+        <div class="fb-name">API Gateway</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <span class="fb-icon">⚙️</span>
+        <div class="fb-label">service</div>
+        <div class="fb-name">User Service</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <span class="fb-icon">🗄️</span>
+        <div class="fb-label">service</div>
+        <div class="fb-name">Order Service</div>
+      </div>
+      <div class="flow-arrow">→</div>
+      <div class="flow-box">
+        <span class="fb-icon">💳</span>
+        <div class="fb-label">service</div>
+        <div class="fb-name">Payment Service</div>
+      </div>
+    </div>
+
+    <p style="color:var(--muted); font-size:13px; margin-bottom:28px;">The gateway handles cross-cutting concerns once, so each backend service stays lean and focused on its own business logic.</p>
+
+    <div class="features-grid">
+      <div class="feat-item">
+        <span class="feat-icon">🔐</span>
+        <div class="feat-title">Authentication & Authorization</div>
+        <div class="feat-desc">Validates API keys, JWT tokens, OAuth2. No auth code in every microservice.</div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">⏱️</span>
+        <div class="feat-title">Rate Limiting</div>
+        <div class="feat-desc">Limit requests per client/IP per second or day. Protects your backend from overload.</div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">↔️</span>
+        <div class="feat-title">Routing & Load Balancing</div>
+        <div class="feat-desc">Route requests to the right service. Canary deploy, A/B test, weighted traffic splits.</div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">📊</span>
+        <div class="feat-title">Observability</div>
+        <div class="feat-desc">Centralized logs, metrics, tracing. See every request across all your services in one place.</div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">🔄</span>
+        <div class="feat-title">Request Transformation</div>
+        <div class="feat-desc">Modify headers, rewrite paths, aggregate multiple backend calls into one response.</div>
+      </div>
+      <div class="feat-item">
+        <span class="feat-icon">💾</span>
+        <div class="feat-title">Caching</div>
+        <div class="feat-desc">Cache responses at the gateway level. Reduce backend load for repeated identical requests.</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- GATEWAY PROFILES -->
+<div class="gateways">
+  <div class="container">
+    <div class="section-label">Gateway profiles</div>
+    <h2>7 Best Free API Gateways</h2>
+    <p class="subtitle">All are open-source and free to self-host. Click each to expand details.</p>
+
+    <!-- Kong -->
+    <div class="gw-card open" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">01</div>
+        <div class="gw-meta">
+          <div class="gw-name">Kong Gateway <span style="font-size:13px;color:var(--muted);font-family:var(--font-body);font-weight:400;">(OSS)</span></div>
+          <div class="gw-tagline">The most widely adopted open-source gateway</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-perf">High perf</span>
+            <span class="badge b-k8s">Kubernetes</span>
+            <span class="badge b-easy">Plugin-rich</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">Kong is built on NGINX and LuaJIT, making it fast and stable. It has the largest open-source community and plugin ecosystem — 60+ bundled plugins for auth, rate limiting, logging, transformations, and more. Kong Konnect (the commercial tier) adds managed cloud, but the OSS version is fully functional for most production use cases.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Largest plugin ecosystem (~60 OSS, hundreds community)</span></li>
+            <li><span class="pro">+</span><span>Massive community — 300K+ monthly instances, 15M+ Docker pulls</span></li>
+            <li><span class="pro">+</span><span>Kubernetes-native via Kong Ingress Controller</span></li>
+            <li><span class="pro">+</span><span>REST Admin API + web UI (KongHQ)</span></li>
+            <li><span class="pro">+</span><span>Strong enterprise upgrade path (Kong Konnect)</span></li>
+            <li><span class="pro">+</span><span>AI proxy plugins (LLM support) added in 2024–25</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>Requires PostgreSQL or Cassandra for HA config store</span></li>
+            <li><span class="con">–</span><span>1–3ms latency overhead with plugins (vs &lt;1ms APISIX)</span></li>
+            <li><span class="con">–</span><span>Advanced features (RBAC, analytics) locked to Enterprise</span></li>
+            <li><span class="con">–</span><span>Primary plugin language is Lua — less familiar to most devs</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>Apache 2.0</td></tr>
+            <tr><td>Language</td><td>Lua / NGINX</td></tr>
+            <tr><td>Max throughput</td><td>~30K RPS (single node)</td></tr>
+            <tr><td>Latency add</td><td>1–3ms</td></tr>
+            <tr><td>Config store</td><td>PostgreSQL / Cassandra</td></tr>
+            <tr><td>Protocols</td><td>HTTP, HTTPS, gRPC, WebSocket, TCP</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Teams that want a battle-tested gateway with a massive plugin library and a clear path to enterprise. If your team knows Lua or needs a huge community, Kong is the default choice.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Apache APISIX -->
+    <div class="gw-card" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">02</div>
+        <div class="gw-meta">
+          <div class="gw-name">Apache APISIX</div>
+          <div class="gw-tagline">Highest throughput, fully dynamic, no DB on data path</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-perf">Best perf</span>
+            <span class="badge b-k8s">Cloud-native</span>
+            <span class="badge b-oss">Apache</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">APISIX is built on NGINX + LuaJIT with etcd as the config store — meaning configuration is distributed and highly available without a database on the request path. It consistently benchmarks 2–4× faster than Kong with 30–50% lower latency. Used by Tencent, NASA, and others processing over 1 trillion API calls daily.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Best-in-class performance: sub-millisecond overhead, 23K+ QPS per node</span></li>
+            <li><span class="pro">+</span><span>Fully dynamic — config changes applied with zero restarts</span></li>
+            <li><span class="pro">+</span><span>100+ plugins; supports Lua, Go, Python, Node.js, Java plugins</span></li>
+            <li><span class="pro">+</span><span>etcd backend — no single point of failure, no DB on data path</span></li>
+            <li><span class="pro">+</span><span>Full Apache 2.0 license — no open-core gotchas</span></li>
+            <li><span class="pro">+</span><span>Kubernetes Gateway API support, service mesh via GAMMA</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>Smaller community outside Asia-Pacific</span></li>
+            <li><span class="con">–</span><span>Documentation can be inconsistent in quality</span></li>
+            <li><span class="con">–</span><span>Dashboard/UI is less polished than Kong's</span></li>
+            <li><span class="con">–</span><span>Requires etcd knowledge for production deployment</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>Apache 2.0</td></tr>
+            <tr><td>Language</td><td>Lua / NGINX + multi-lang plugins</td></tr>
+            <tr><td>Max throughput</td><td>23K–50K+ QPS (single node)</td></tr>
+            <tr><td>Latency add</td><td>&lt;1ms</td></tr>
+            <tr><td>Config store</td><td>etcd (no DB on data path)</td></tr>
+            <tr><td>Protocols</td><td>HTTP, HTTPS, gRPC, WebSocket, TCP, UDP</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Teams that need maximum throughput and lowest latency. Ideal for high-traffic microservices, cloud-native Kubernetes setups, and organizations who want a truly vendor-neutral open-source gateway.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Tyk -->
+    <div class="gw-card" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">03</div>
+        <div class="gw-meta">
+          <div class="gw-name">Tyk</div>
+          <div class="gw-tagline">Full management stack in the OSS edition — analytics, portal, dashboard</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-full">Full APIM</span>
+            <span class="badge b-easy">Dev portal</span>
+            <span class="badge b-oss">Go-based</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">Tyk is written in Go and is one of the few open-source gateways that gives you a full API management suite for free — including a developer portal, built-in analytics, and a dashboard. REST, GraphQL, TCP, and gRPC are all supported. It also supports multi-tenancy in the OSS version, which is rare.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Full APIM stack for free: gateway + analytics + dashboard + developer portal</span></li>
+            <li><span class="pro">+</span><span>Multi-tenancy support in OSS (rare among free gateways)</span></li>
+            <li><span class="pro">+</span><span>Written in Go — easy to extend, predictable memory usage</span></li>
+            <li><span class="pro">+</span><span>Excellent GraphQL native support</span></li>
+            <li><span class="pro">+</span><span>REST API and web dashboard for admin tasks</span></li>
+            <li><span class="pro">+</span><span>Rated 4.8/5 on Gartner Peer Insights</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>Smaller plugin ecosystem than Kong</span></li>
+            <li><span class="con">–</span><span>Higher latency than APISIX/KrakenD (Go vs NGINX)</span></li>
+            <li><span class="con">–</span><span>UI has a learning curve for new users</span></li>
+            <li><span class="con">–</span><span>Community smaller than Kong's</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>MPL 2.0</td></tr>
+            <tr><td>Language</td><td>Go</td></tr>
+            <tr><td>Max throughput</td><td>~20K RPS (single node)</td></tr>
+            <tr><td>Latency add</td><td>1–3ms</td></tr>
+            <tr><td>Config store</td><td>Redis + MongoDB</td></tr>
+            <tr><td>Protocols</td><td>REST, GraphQL, gRPC, TCP, WebSocket</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Teams that want developer portal + analytics included out of the box without paying for enterprise. Also great if you're doing GraphQL or need multi-tenancy from day one.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- KrakenD -->
+    <div class="gw-card" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">04</div>
+        <div class="gw-meta">
+          <div class="gw-name">KrakenD</div>
+          <div class="gw-tagline">Stateless, ultra-fast, built for BFF and API aggregation</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-perf">70K RPS</span>
+            <span class="badge b-bff">BFF pattern</span>
+            <span class="badge b-easy">Stateless</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">KrakenD is stateless — no database, no coordination between nodes, no shared state. It's purely declarative via a JSON config file. Its killer feature is backend aggregation: it can fan out one client request to multiple backends and merge the responses, implementing the Backend for Frontend (BFF) pattern elegantly. Backed by the Linux Foundation.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Highest raw throughput: 70K+ RPS on a single instance</span></li>
+            <li><span class="pro">+</span><span>Truly stateless — no database, no Redis, no coordination</span></li>
+            <li><span class="pro">+</span><span>Backend aggregation / BFF pattern built-in</span></li>
+            <li><span class="pro">+</span><span>Declarative config via JSON — CI/CD friendly</span></li>
+            <li><span class="pro">+</span><span>KrakenDesigner — visual config builder</span></li>
+            <li><span class="pro">+</span><span>OWASP-compliant, data-agnostic (no data stored)</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>No built-in developer portal or analytics dashboard</span></li>
+            <li><span class="con">–</span><span>Less plugin flexibility than Kong or APISIX</span></li>
+            <li><span class="con">–</span><span>Smaller community</span></li>
+            <li><span class="con">–</span><span>EE version required for some advanced features</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>Apache 2.0 (CE)</td></tr>
+            <tr><td>Language</td><td>Go</td></tr>
+            <tr><td>Max throughput</td><td>70K+ RPS (single node)</td></tr>
+            <tr><td>Latency add</td><td>&lt;1ms</td></tr>
+            <tr><td>Config store</td><td>None (stateless JSON config)</td></tr>
+            <tr><td>Protocols</td><td>HTTP, HTTPS, gRPC, WebSocket</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Teams building BFF layers, needing maximum throughput, or wanting a dead-simple deployment with no database dependencies. Perfect for pure performance and CI/CD-friendly declarative config.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Gravitee -->
+    <div class="gw-card" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">05</div>
+        <div class="gw-meta">
+          <div class="gw-name">Gravitee.io</div>
+          <div class="gw-tagline">Event-native: REST, WebSocket, async, and event-driven APIs</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-full">Full APIM</span>
+            <span class="badge b-eu">EU-sovereign</span>
+            <span class="badge b-bff">Async APIs</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">Gravitee is an event-native API management platform — uniquely strong at both synchronous (REST) and asynchronous (WebSocket, Kafka, MQTT, SSE) API management. Founded in France, it's popular with European organizations that need data sovereignty and GDPR compliance. Includes a full APIM suite: gateway, developer portal, analytics, and access management.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Best async API support: WebSocket, Kafka, MQTT, SSE, SSE</span></li>
+            <li><span class="pro">+</span><span>Full APIM suite: gateway + portal + analytics + access mgmt</span></li>
+            <li><span class="pro">+</span><span>European-founded, strong GDPR and data sovereignty focus</span></li>
+            <li><span class="pro">+</span><span>Policy-driven configuration — no custom code needed</span></li>
+            <li><span class="pro">+</span><span>Community edition is fully featured for most use cases</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>More complex setup than lighter alternatives</span></li>
+            <li><span class="con">–</span><span>Lower throughput than APISIX or KrakenD</span></li>
+            <li><span class="con">–</span><span>Smaller community than Kong</span></li>
+            <li><span class="con">–</span><span>Java-based — higher memory footprint</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>Apache 2.0</td></tr>
+            <tr><td>Language</td><td>Java</td></tr>
+            <tr><td>Max throughput</td><td>Moderate (sync) / strong async</td></tr>
+            <tr><td>Latency add</td><td>2–5ms</td></tr>
+            <tr><td>Config store</td><td>MongoDB + Elasticsearch</td></tr>
+            <tr><td>Protocols</td><td>REST, WebSocket, Kafka, MQTT, SSE, gRPC</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Event-driven architectures, organizations needing both sync and async API management, and European teams with strict data sovereignty requirements.</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Envoy -->
+    <div class="gw-card" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">06</div>
+        <div class="gw-meta">
+          <div class="gw-name">Envoy Gateway</div>
+          <div class="gw-tagline">CNCF-standard, Kubernetes-native, service mesh backbone</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-k8s">K8s-native</span>
+            <span class="badge b-mesh">Service mesh</span>
+            <span class="badge b-perf">L4/L7</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">Envoy is a high-performance proxy originally built by Lyft, now a CNCF project. Envoy Gateway (launched 2022, now stable) implements the Kubernetes Gateway API spec using Envoy as the data plane. It's the reference implementation used in the CKA/CKAD certification exams. Best when you need a service mesh alongside your gateway (Istio, etc.) since Envoy powers both.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>CNCF reference implementation for Kubernetes Gateway API</span></li>
+            <li><span class="pro">+</span><span>Exceptional observability: native tracing, metrics, access logs</span></li>
+            <li><span class="pro">+</span><span>Supports L4 and L7, HTTP/2, gRPC, WebSocket</span></li>
+            <li><span class="pro">+</span><span>Powers Istio — unified gateway + mesh data plane</span></li>
+            <li><span class="pro">+</span><span>Wasm filter extensibility for custom logic</span></li>
+            <li><span class="pro">+</span><span>mTLS between services out of the box</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>Steep learning curve: xDS API, Wasm filters, complex config</span></li>
+            <li><span class="con">–</span><span>No built-in developer portal, API key management, or monetization</span></li>
+            <li><span class="con">–</span><span>Not a standalone API management solution — focused on infra/traffic</span></li>
+            <li><span class="con">–</span><span>Usually deployed alongside another gateway for API management</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>Apache 2.0</td></tr>
+            <tr><td>Language</td><td>C++</td></tr>
+            <tr><td>Max throughput</td><td>Very high (C++ core)</td></tr>
+            <tr><td>Latency add</td><td>&lt;1ms</td></tr>
+            <tr><td>Config store</td><td>xDS control plane</td></tr>
+            <tr><td>Protocols</td><td>HTTP/1.1, HTTP/2, gRPC, WebSocket, TCP, UDP</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Platform teams running Kubernetes who need advanced traffic management, a service mesh, and observability. Often used alongside an API management tool (not as a replacement).</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Traefik -->
+    <div class="gw-card" onclick="toggle(this)">
+      <div class="gw-header">
+        <div class="gw-num">07</div>
+        <div class="gw-meta">
+          <div class="gw-name">Traefik</div>
+          <div class="gw-tagline">Auto-discovery, Docker-native, zero-config for simple setups</div>
+        </div>
+        <div style="display:flex; align-items:center; gap:12px;">
+          <div class="gw-badges">
+            <span class="badge b-easy">Easy setup</span>
+            <span class="badge b-k8s">Docker/K8s</span>
+            <span class="badge b-oss">Go</span>
+          </div>
+          <div class="chevron">▾</div>
+        </div>
+      </div>
+      <div class="gw-body">
+        <p class="gw-desc">Traefik is a cloud-native reverse proxy and load balancer with automatic service discovery. It reads Docker labels and Kubernetes annotations to configure itself — zero manual routing rules for simple setups. It's the easiest gateway to get started with and is extremely popular in Docker Compose environments. Written in Go and very resource-efficient.</p>
+        <div>
+          <div class="gw-section-title">Strengths</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Automatic service discovery — no manual route config needed</span></li>
+            <li><span class="pro">+</span><span>Zero-config for Docker / Docker Compose setups</span></li>
+            <li><span class="pro">+</span><span>Built-in Let's Encrypt / HTTPS termination</span></li>
+            <li><span class="pro">+</span><span>Lightweight Go binary — minimal resource usage</span></li>
+            <li><span class="pro">+</span><span>Good Kubernetes Ingress + Gateway API support</span></li>
+            <li><span class="pro">+</span><span>Nice built-in dashboard for traffic overview</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Weaknesses</div>
+          <ul class="pro-con-list">
+            <li><span class="con">–</span><span>Enterprise features (distributed tracing, advanced auth) require paid Traefik Enterprise (~$600/mo)</span></li>
+            <li><span class="con">–</span><span>Less plugin flexibility than Kong or APISIX for complex API management</span></li>
+            <li><span class="con">–</span><span>Not suited for full API lifecycle management out of the box</span></li>
+            <li><span class="con">–</span><span>No developer portal or analytics built-in</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Specs</div>
+          <table class="spec-table">
+            <tr><td>License</td><td>MIT</td></tr>
+            <tr><td>Language</td><td>Go</td></tr>
+            <tr><td>Max throughput</td><td>~15–20K RPS</td></tr>
+            <tr><td>Latency add</td><td>1–2ms</td></tr>
+            <tr><td>Config store</td><td>Auto-discovery (Docker/K8s labels)</td></tr>
+            <tr><td>Protocols</td><td>HTTP, HTTPS, TCP, UDP, WebSocket, gRPC</td></tr>
+          </table>
+        </div>
+        <div>
+          <div class="gw-section-title">Best for</div>
+          <p style="font-size:13px; color:#b0b0c8;">Small teams, Docker/Compose setups, and projects that want zero-config routing with automatic HTTPS. Great starting point before graduating to Kong or APISIX at scale.</p>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<!-- COMPARISON TABLE -->
+<div class="compare">
+  <div class="container">
+    <div class="section-label">Side by side</div>
+    <h2>Feature Comparison</h2>
+    <p class="subtitle">All gateways are free to self-host. ✅ native &nbsp; 🟡 plugin/partial &nbsp; ➖ no</p>
+    <div class="table-wrap">
+      <table class="comp">
+        <thead>
+          <tr>
+            <th>Feature</th>
+            <th>Kong OSS</th>
+            <th>APISIX</th>
+            <th>Tyk</th>
+            <th>KrakenD</th>
+            <th>Gravitee</th>
+            <th>Envoy GW</th>
+            <th>Traefik</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>License</td>
+            <td>Apache 2.0</td>
+            <td>Apache 2.0</td>
+            <td>MPL 2.0</td>
+            <td>Apache 2.0</td>
+            <td>Apache 2.0</td>
+            <td>Apache 2.0</td>
+            <td>MIT</td>
+          </tr>
+          <tr>
+            <td>Language</td>
+            <td>Lua/NGINX</td>
+            <td>Lua/NGINX</td>
+            <td>Go</td>
+            <td>Go</td>
+            <td>Java</td>
+            <td>C++</td>
+            <td>Go</td>
+          </tr>
+          <tr>
+            <td>Max RPS (node)</td>
+            <td>~30K</td>
+            <td>50K+</td>
+            <td>~20K</td>
+            <td><strong style="color:var(--accent)">70K+</strong></td>
+            <td>Moderate</td>
+            <td>Very high</td>
+            <td>~15–20K</td>
+          </tr>
+          <tr>
+            <td>Latency add</td>
+            <td>1–3ms</td>
+            <td><strong style="color:var(--accent)">&lt;1ms</strong></td>
+            <td>1–3ms</td>
+            <td><strong style="color:var(--accent)">&lt;1ms</strong></td>
+            <td>2–5ms</td>
+            <td><strong style="color:var(--accent)">&lt;1ms</strong></td>
+            <td>1–2ms</td>
+          </tr>
+          <tr>
+            <td>Auth (JWT/OAuth2)</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>Rate limiting</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>gRPC support</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>WebSocket</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>GraphQL</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Developer portal</td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Built-in analytics</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>Web UI / dashboard</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Kubernetes-native</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Traffic splitting</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Backend aggregation (BFF)</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Async APIs (Kafka etc.)</td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Multi-tenancy (OSS)</td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Config store</td>
+            <td>PostgreSQL</td>
+            <td>etcd</td>
+            <td>Redis+MongoDB</td>
+            <td>None (JSON)</td>
+            <td>MongoDB+ES</td>
+            <td>xDS</td>
+            <td>Auto-discover</td>
+          </tr>
+          <tr>
+            <td>Plugin system</td>
+            <td>Lua / Go PDK</td>
+            <td>Lua + 5 langs</td>
+            <td>Go middleware</td>
+            <td>Go plugins</td>
+            <td>Java policies</td>
+            <td>C++ / Wasm</td>
+            <td>Go middlewares</td>
+          </tr>
+          <tr>
+            <td>Ease of setup</td>
+            <td>Medium</td>
+            <td>Medium-hard</td>
+            <td>Medium</td>
+            <td><strong style="color:var(--accent)">Easy</strong></td>
+            <td>Hard</td>
+            <td>Hard</td>
+            <td><strong style="color:var(--accent)">Easiest</strong></td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- ══ AUTH ══ -->
+<div class="deep">
+  <div class="container">
+    <div class="section-label">Security deep-dive</div>
+    <h2>Authentication Comparison</h2>
+    <p class="subtitle">How each gateway handles identity verification — the most critical security layer.</p>
+
+    <div class="auth-methods">
+      <div class="auth-card">
+        <span class="auth-icon">🔑</span>
+        <div class="auth-name">API Key</div>
+        <div class="auth-desc">Simple shared secret. Fast, stateless. Best for server-to-server over TLS. Not safe for browser/mobile clients.</div>
+      </div>
+      <div class="auth-card">
+        <span class="auth-icon">🪙</span>
+        <div class="auth-name">JWT</div>
+        <div class="auth-desc">Signed tokens with embedded claims. Self-contained — gateway validates without hitting a DB. Dominant for high-throughput APIs.</div>
+      </div>
+      <div class="auth-card">
+        <span class="auth-icon">🔐</span>
+        <div class="auth-name">OAuth 2.0 / OIDC</div>
+        <div class="auth-desc">Delegated authorization + identity. Standard for third-party access and SSO. Supports Okta, Auth0, Azure AD, Google.</div>
+      </div>
+      <div class="auth-card">
+        <span class="auth-icon">🤝</span>
+        <div class="auth-name">mTLS</div>
+        <div class="auth-desc">Mutual TLS — both client and server verify certificates. Zero-trust foundation for machine-to-machine. No application-layer tokens.</div>
+      </div>
+      <div class="auth-card">
+        <span class="auth-icon">✍️</span>
+        <div class="auth-name">HMAC Signing</div>
+        <div class="auth-desc">Request signature verification. Ensures integrity and authenticity. Used by AWS Signature, Tyk policy enforcement.</div>
+      </div>
+      <div class="auth-card">
+        <span class="auth-icon">🏢</span>
+        <div class="auth-name">LDAP / Basic</div>
+        <div class="auth-desc">Enterprise directory auth (Active Directory). Legacy but still common in intranet or on-prem environments.</div>
+      </div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Auth Method</th>
+            <th>Kong OSS</th>
+            <th>APISIX</th>
+            <th>Tyk</th>
+            <th>KrakenD</th>
+            <th>Gravitee</th>
+            <th>Envoy GW</th>
+            <th>Traefik</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>API Key</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>JWT (HS256 / RS256)</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>OAuth 2.0</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>OpenID Connect (OIDC)</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>mTLS (mutual TLS)</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>HMAC Signing</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>LDAP / Basic Auth</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>RBAC (per-route)</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Multi-auth per route</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+          </tr>
+          <tr>
+            <td>Built-in WAF</td>
+            <td><span class="n">➖</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Auth plugins count</td>
+            <td style="color:var(--accent);font-weight:600">~15</td>
+            <td style="color:var(--accent);font-weight:600">10+</td>
+            <td>7+</td>
+            <td>4</td>
+            <td>8+</td>
+            <td>4</td>
+            <td>4</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted)">✅ Native &nbsp; 🟡 Plugin/partial &nbsp; ➖ Not supported in OSS edition. APISIX stands out with 10+ auth plugins and the ability to stack multiple auth methods on a single route.</p>
+  </div>
+</div>
+
+<!-- ══ PERFORMANCE ══ -->
+<div class="deep">
+  <div class="container">
+    <div class="section-label">Performance deep-dive</div>
+    <h2>Performance Comparison</h2>
+    <p class="subtitle">Throughput, latency overhead, and what actually affects speed in production.</p>
+
+    <p style="font-size:13px;color:var(--muted);margin-bottom:20px;">Throughput (requests per second, single node, with auth + rate limiting enabled):</p>
+    <div class="perf-grid">
+      <div class="perf-row">
+        <div class="perf-gw">KrakenD</div>
+        <div class="perf-track"><div class="perf-fill f-krakend" style="width:100%"></div></div>
+        <div class="perf-val">70K+ RPS</div>
+      </div>
+      <div class="perf-row">
+        <div class="perf-gw">APISIX</div>
+        <div class="perf-track"><div class="perf-fill f-apisix" style="width:75%"></div></div>
+        <div class="perf-val">50K+ RPS</div>
+      </div>
+      <div class="perf-row">
+        <div class="perf-gw">Envoy GW</div>
+        <div class="perf-track"><div class="perf-fill f-envoy" style="width:68%"></div></div>
+        <div class="perf-val">Very high (C++)</div>
+      </div>
+      <div class="perf-row">
+        <div class="perf-gw">Kong OSS</div>
+        <div class="perf-track"><div class="perf-fill f-kong" style="width:45%"></div></div>
+        <div class="perf-val">~30K RPS</div>
+      </div>
+      <div class="perf-row">
+        <div class="perf-gw">Tyk</div>
+        <div class="perf-track"><div class="perf-fill f-tyk" style="width:30%"></div></div>
+        <div class="perf-val">~20K RPS</div>
+      </div>
+      <div class="perf-row">
+        <div class="perf-gw">Traefik</div>
+        <div class="perf-track"><div class="perf-fill f-traefik" style="width:24%"></div></div>
+        <div class="perf-val">15–20K RPS</div>
+      </div>
+      <div class="perf-row">
+        <div class="perf-gw">Gravitee</div>
+        <div class="perf-track"><div class="perf-fill f-gravitee" style="width:18%"></div></div>
+        <div class="perf-val">Moderate (Java)</div>
+      </div>
+    </div>
+
+    <p style="font-size:13px;color:var(--muted);margin-bottom:16px;">Latency overhead added per request (measured without plugins — each active plugin adds ~0.1–0.5ms):</p>
+    <div class="lat-grid">
+      <div class="lat-card"><div class="lat-val lat-good">&lt;1ms</div><div class="lat-gw">APISIX</div></div>
+      <div class="lat-card"><div class="lat-val lat-good">&lt;1ms</div><div class="lat-gw">KrakenD</div></div>
+      <div class="lat-card"><div class="lat-val lat-good">&lt;1ms</div><div class="lat-gw">Envoy GW</div></div>
+      <div class="lat-card"><div class="lat-val lat-mid">1–2ms</div><div class="lat-gw">Traefik</div></div>
+      <div class="lat-card"><div class="lat-val lat-mid">1–3ms</div><div class="lat-gw">Kong OSS</div></div>
+      <div class="lat-card"><div class="lat-val lat-mid">1–3ms</div><div class="lat-gw">Tyk</div></div>
+      <div class="lat-card"><div class="lat-val lat-slow">2–5ms</div><div class="lat-gw">Gravitee</div></div>
+    </div>
+
+    <div class="matrix-wrap">
+      <table class="matrix">
+        <thead>
+          <tr>
+            <th>Factor</th>
+            <th>Kong OSS</th>
+            <th>APISIX</th>
+            <th>Tyk</th>
+            <th>KrakenD</th>
+            <th>Gravitee</th>
+            <th>Envoy GW</th>
+            <th>Traefik</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>Runtime engine</td>
+            <td>NGINX/LuaJIT</td>
+            <td>NGINX/LuaJIT</td>
+            <td>Go</td>
+            <td>Go</td>
+            <td>Java JVM</td>
+            <td>C++</td>
+            <td>Go</td>
+          </tr>
+          <tr>
+            <td>DB on data path</td>
+            <td style="color:#f87171">Yes (PG)</td>
+            <td style="color:var(--accent)">No (etcd)</td>
+            <td style="color:#fbbf24">Redis only</td>
+            <td style="color:var(--accent)">None</td>
+            <td style="color:#f87171">Yes (Mongo)</td>
+            <td style="color:var(--accent)">No (xDS)</td>
+            <td style="color:var(--accent)">No</td>
+          </tr>
+          <tr>
+            <td>HTTP/2 support</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Connection pooling</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Dynamic config (no restart)</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+          </tr>
+          <tr>
+            <td>Response caching</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>Circuit breaker</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+          </tr>
+          <tr>
+            <td>Perf winner at scale</td>
+            <td>⭐⭐⭐</td>
+            <td><strong style="color:var(--accent)">⭐⭐⭐⭐⭐</strong></td>
+            <td>⭐⭐⭐</td>
+            <td><strong style="color:var(--accent2)">⭐⭐⭐⭐⭐</strong></td>
+            <td>⭐⭐</td>
+            <td>⭐⭐⭐⭐⭐</td>
+            <td>⭐⭐⭐</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+    <p style="font-size:12px;color:var(--muted);margin-top:8px;">⚠️ Always benchmark with your actual plugin chain enabled — each active plugin (auth, rate limiting, logging) adds measurable overhead. Vendor numbers are typically measured passthrough-only.</p>
+  </div>
+</div>
+
+<!-- ══ SCALABILITY ══ -->
+<div class="deep">
+  <div class="container">
+    <div class="section-label">Scalability deep-dive</div>
+    <h2>Scalability Comparison</h2>
+    <p class="subtitle">How each gateway scales horizontally, handles HA, and fits into cloud-native environments.</p>
+
+    <div class="scale-grid">
+      <div class="scale-card">
+        <div class="scale-title">Kong OSS</div>
+        <div class="scale-model">Horizontal · Stateful (PostgreSQL)</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-amber" style="width:80%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>Medium</span></div>
+          <div class="scale-track"><div class="scale-fill s-amber" style="width:55%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>✅ Helm + Ingress Controller</span></div>
+          <div class="scale-track"><div class="scale-fill s-amber" style="width:85%"></div></div>
+        </div>
+        <div class="scale-note">Scales well horizontally — all nodes share PostgreSQL as a config store. DB becomes the HA bottleneck. Cassandra optional for larger deployments. Helm chart available, HPA supported.</div>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-title">Apache APISIX</div>
+        <div class="scale-model">Horizontal · Stateless data path (etcd)</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-green" style="width:95%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>Low (etcd cluster)</span></div>
+          <div class="scale-track"><div class="scale-fill s-green" style="width:35%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>✅ Helm + Gateway API</span></div>
+          <div class="scale-track"><div class="scale-fill s-green" style="width:92%"></div></div>
+        </div>
+        <div class="scale-note">Best horizontal scaling story. No DB on data path — etcd propagates config in milliseconds. Add nodes freely with no coordination penalty. Config changes don't require restarts. etcd cluster needed for HA.</div>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-title">Tyk</div>
+        <div class="scale-model">Horizontal · Redis-backed</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-pink" style="width:75%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>Medium (Redis HA)</span></div>
+          <div class="scale-track"><div class="scale-fill s-pink" style="width:50%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>✅ Helm + Operator</span></div>
+          <div class="scale-track"><div class="scale-fill s-pink" style="width:78%"></div></div>
+        </div>
+        <div class="scale-note">Scales horizontally with Redis Cluster for shared state (rate limits, session data). Pump component ships analytics asynchronously. Hybrid mode connects OSS nodes to a remote Tyk Dashboard for multi-region.</div>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-title">KrakenD</div>
+        <div class="scale-model">Horizontal · Truly stateless</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-blue" style="width:100%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>Very Low</span></div>
+          <div class="scale-track"><div class="scale-fill s-blue" style="width:15%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>✅ Helm + HPA ready</span></div>
+          <div class="scale-track"><div class="scale-fill s-blue" style="width:88%"></div></div>
+        </div>
+        <div class="scale-note">Easiest scaling story of all. No database, no shared state — just spin up more containers. Config is a JSON file baked into the image. Scale to thousands of nodes with a load balancer in front. Perfect for Kubernetes HPA.</div>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-title">Gravitee</div>
+        <div class="scale-model">Horizontal · MongoDB + Elasticsearch</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-purple" style="width:60%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>High</span></div>
+          <div class="scale-track"><div class="scale-fill s-purple" style="width:80%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>🟡 Helm available</span></div>
+          <div class="scale-track"><div class="scale-fill s-purple" style="width:60%"></div></div>
+        </div>
+        <div class="scale-note">Gateway nodes are stateless and scale horizontally. Management API, portal, and analytics require MongoDB + Elasticsearch HA clusters. Java JVM adds memory overhead per node (~512MB–1GB each). Best for async/event-driven scale.</div>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-title">Envoy Gateway</div>
+        <div class="scale-model">Horizontal · xDS control plane</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-sky" style="width:95%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>Low (K8s-native)</span></div>
+          <div class="scale-track"><div class="scale-fill s-sky" style="width:30%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>✅ Built for K8s</span></div>
+          <div class="scale-track"><div class="scale-fill s-sky" style="width:100%"></div></div>
+        </div>
+        <div class="scale-note">Designed for Kubernetes from the ground up. Control plane manages config via xDS — data plane nodes are stateless Envoy proxies. Integrates naturally with HPA, cluster autoscaler, and multi-cluster federation. Best K8s scaling story.</div>
+      </div>
+
+      <div class="scale-card">
+        <div class="scale-title">Traefik</div>
+        <div class="scale-model">Horizontal · Stateless + auto-discover</div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>Horizontal scale</span><span>⭐⭐⭐⭐</span></div>
+          <div class="scale-track"><div class="scale-fill s-orange" style="width:72%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>HA complexity</span><span>Low</span></div>
+          <div class="scale-track"><div class="scale-fill s-orange" style="width:25%"></div></div>
+        </div>
+        <div class="scale-bar-wrap">
+          <div class="scale-label"><span>K8s-native</span><span>✅ Ingress + Gateway API</span></div>
+          <div class="scale-track"><div class="scale-fill s-orange" style="width:82%"></div></div>
+        </div>
+        <div class="scale-note">Stateless nodes scale easily — config is read from Docker/K8s metadata at runtime. ACME/Let's Encrypt certs need shared storage (or Traefik Hub) in multi-replica setups. Great for small-to-mid traffic. Enterprise adds distributed rate limiting.</div>
+      </div>
+    </div>
+
+    <div style="margin-top:24px;">
+      <div class="matrix-wrap">
+        <table class="matrix">
+          <thead>
+            <tr>
+              <th>Scalability factor</th>
+              <th>Kong OSS</th>
+              <th>APISIX</th>
+              <th>Tyk</th>
+              <th>KrakenD</th>
+              <th>Gravitee</th>
+              <th>Envoy GW</th>
+              <th>Traefik</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Stateless data plane</td>
+              <td><span class="n">➖</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+            </tr>
+            <tr>
+              <td>Zero-downtime config reload</td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="n">➖</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+            </tr>
+            <tr>
+              <td>Kubernetes HPA ready</td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+            </tr>
+            <tr>
+              <td>Multi-region / multi-cluster</td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="p">🟡</span></td>
+            </tr>
+            <tr>
+              <td>Distributed rate limiting</td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="p">🟡</span></td>
+            </tr>
+            <tr>
+              <td>Service mesh (east-west)</td>
+              <td><span class="n">➖</span></td>
+              <td><span class="p">🟡</span></td>
+              <td><span class="n">➖</span></td>
+              <td><span class="n">➖</span></td>
+              <td><span class="n">➖</span></td>
+              <td><span class="y">✅</span></td>
+              <td><span class="n">➖</span></td>
+            </tr>
+            <tr>
+              <td>Resource / node overhead</td>
+              <td>Low</td>
+              <td><strong style="color:var(--accent)">Very low</strong></td>
+              <td>Low</td>
+              <td><strong style="color:var(--accent)">Very low</strong></td>
+              <td style="color:#f87171">High (JVM)</td>
+              <td>Low (C++)</td>
+              <td>Low</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- PICK GUIDE -->
+<div class="pick">
+  <div class="container">
+    <div class="section-label">Decision guide</div>
+    <h2>Which free gateway should you pick?</h2>
+    <p class="subtitle">Match your situation to the right tool.</p>
+    <div class="scenarios">
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">The biggest community, most plugins, battle-tested in production</div>
+        </div>
+        <div class="sc-pick sc-kong">Kong OSS</div>
+      </div>
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">Maximum throughput and lowest latency — sub-millisecond, no DB on data path</div>
+        </div>
+        <div class="sc-pick sc-apisix">Apache APISIX</div>
+      </div>
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">Developer portal + analytics + GraphQL included for free, right now</div>
+        </div>
+        <div class="sc-pick sc-tyk">Tyk OSS</div>
+      </div>
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">No database, 70K+ RPS, or you're building a BFF aggregation layer</div>
+        </div>
+        <div class="sc-pick sc-krakend">KrakenD</div>
+      </div>
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">Async APIs (Kafka, MQTT), event-driven architecture, or EU data sovereignty</div>
+        </div>
+        <div class="sc-pick sc-gravitee">Gravitee</div>
+      </div>
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">Kubernetes service mesh + gateway, mTLS, and deep observability</div>
+        </div>
+        <div class="sc-pick sc-envoy">Envoy Gateway</div>
+      </div>
+      <div class="scenario">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">The quickest start — Docker Compose with auto-discovery and zero config</div>
+        </div>
+        <div class="sc-pick sc-traefik">Traefik</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- FOOTER -->
+<div class="footer">
+  <div class="footer-note">Free API Gateways · 2026 Edition · All gateways are self-hosted, open-source</div>
+  <div class="footer-note">Data from official docs, benchmarks, community reviews</div>
+</div>
+
+<script>
+function toggle(card) {
+  card.classList.toggle('open');
+}
+</script>
+</body>
+</html>
