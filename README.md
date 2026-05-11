@@ -317,6 +317,7 @@ Small teams, Docker/Compose setups, and projects that want zero-config routing w
 
 | If you need… | Use |
 |---|---|
+| **K8s + replace Ingress-NGINX + centralized auth service** | **Kong OSS ★ (top pick for this setup)** |
 | The biggest community, most plugins, battle-tested in production | **Kong OSS** |
 | Maximum throughput and lowest latency — sub-ms, no DB on data path | **Apache APISIX** |
 | Developer portal + analytics + GraphQL included for free | **Tyk OSS** |
@@ -495,6 +496,110 @@ Authentication is the most critical security layer — the gateway validates eve
 
 ---
 
+## Use-Case Recommendation: K8s + Ingress-NGINX + Centralized Auth Service
+
+> **Your scenario:** Microservices running on Kubernetes, currently using Ingress-NGINX, where every service calls a shared auth service to validate identity.
+
+### ⚠️ Critical: Ingress-NGINX is EOL (March 2026)
+
+Ingress-NGINX Controller reached end-of-life in March 2026. There are no further security patches, bug fixes, or Kubernetes version compatibility updates. If you're still running it, you need a migration plan now.
+
+### Winner: Kong OSS + Kong Ingress Controller (KIC)
+
+Kong solves both problems simultaneously — it **replaces Ingress-NGINX** as your cluster ingress controller and **centralizes auth validation** via plugins, so your microservices never call the auth service themselves.
+
+#### Why Kong is the best fit
+
+| Reason | Detail |
+|---|---|
+| **Replaces Ingress-NGINX directly** | Kong Ingress Controller uses the same Kubernetes Ingress resource model — existing Ingress manifests need minimal changes |
+| **Auth plugin intercepts every request** | The `openid-connect` plugin calls your auth service before forwarding — zero auth code in each microservice |
+| **User identity injection** | Injects `X-User-Id`, `X-User-Role` etc. as headers to downstream services automatically |
+| **15+ auth plugins** | JWT, OAuth2, OIDC, API key, mTLS, LDAP, HMAC — covers any auth pattern |
+| **Cross-cutting concerns in one place** | Rate limiting, circuit breaker, logging — all at the gateway, services stay lean |
+| **Gateway API support** | Future-proof path built in — no second migration needed |
+
+#### Request flow with Kong
+
+```
+Client
+  ↓  HTTPS request
+Kong Gateway (KIC)          ← intercepts every request
+  ↓  calls auth-svc /validate
+Auth Service  →  200 OK / 401 Unauthorized
+  ↓  forward + inject user headers (X-User-Id, X-User-Role)
+Order Svc / Product Svc / Payment Svc
+  ↓  trust headers, NO auth code in each service
+Response back to client
+```
+
+#### Migration: Ingress-NGINX → Kong KIC
+
+```bash
+# 1. Install Kong Ingress Controller via Helm
+helm repo add kong https://charts.konghq.com
+helm install kong kong/ingress -n kong --create-namespace
+
+# 2. Point existing Ingress resources at Kong
+kubectl annotate ingress my-ingress kubernetes.io/ingress.class=kong
+
+# 3. Add the auth plugin (calls your auth service per-request)
+kubectl apply -f kong-auth-plugin.yaml
+
+# 4. Remove Ingress-NGINX once traffic is verified
+helm uninstall ingress-nginx
+```
+
+#### Kong plugin config — calls your auth service per request
+
+```yaml
+apiVersion: configuration.konghq.com/v1
+kind: KongPlugin
+metadata:
+  name: auth-validator
+  annotations:
+    kubernetes.io/ingress.class: kong
+plugin: openid-connect
+config:
+  auth_methods: [bearer, introspection]
+  introspection_endpoint: http://auth-svc.default.svc/validate
+  upstream_headers_claims: [sub, role]
+  # Kong injects X-User-Id and X-User-Role headers automatically
+```
+
+Apply to all routes globally or per-Ingress resource:
+
+```yaml
+# Per-service annotation
+metadata:
+  annotations:
+    konghq.com/plugins: auth-validator
+```
+
+### Why the Others Don't Fit as Well
+
+| Gateway | K8s ingress replacement | Centralized auth plugin | Problem for this setup |
+|---|---|---|---|
+| **APISIX** | ✅ | ✅ | Excellent runner-up — slightly more etcd ops, smaller K8s auth community |
+| **Envoy Gateway** | ✅ | 🟡 | Pure infra/traffic layer — no built-in auth plugin, needs additional tooling |
+| **Traefik** | ✅ | 🟡 | `ForwardAuth` middleware calls external auth, but limited plugin depth; enterprise features are paid |
+| **KrakenD** | ➖ | 🟡 | Not a K8s ingress controller; stateless JSON config means auth restarts to change |
+| **Tyk** | 🟡 | ✅ | Full APIM suite — overkill for pure microservice routing; MongoDB + Redis required |
+| **Gravitee** | ➖ | ✅ | Not a K8s ingress controller; high JVM memory overhead |
+
+### Runner-up: Apache APISIX
+
+If sub-millisecond latency is your top priority and your team is comfortable running etcd in HA mode, APISIX is an excellent alternative:
+
+- Same Kubernetes Ingress Controller pattern
+- 10+ auth plugins — stackable on a single route
+- Dynamic config propagation with zero restarts
+- No DB on the data path (etcd only)
+
+**Rule:** Choose Kong if you want a larger community, more examples, and simpler ops. Choose APISIX if you're handling 50K+ RPS per node and latency is the primary constraint.
+
+---
+
 ## Quick Start References
 
 | Gateway | Docker one-liner |
@@ -507,5 +612,5 @@ Authentication is the most critical security layer — the gateway validates eve
 
 ---
 
-*Last updated: May 2026 · Sections: What is an API Gateway · 7 Gateway Profiles · Feature Comparison · Auth Deep-Dive · Performance Deep-Dive · Scalability Deep-Dive · Decision Guide · Cost Reality Check · Quick Start*  
+*Last updated: May 2026 · Sections: What is an API Gateway · 7 Gateway Profiles · Feature Comparison · Auth Deep-Dive · Performance Deep-Dive · Scalability Deep-Dive · Decision Guide · K8s + Auth Recommendation · Cost Reality Check · Quick Start*  
 *Sources: official documentation, published benchmarks, Gartner Peer Insights, CNCF survey data, apisix.apache.org, api7.ai, digitalapi.ai*

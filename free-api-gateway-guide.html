@@ -1793,6 +1793,13 @@ table.matrix tbody tr:hover td:first-child { background:var(--bg3); }
     <h2>Which free gateway should you pick?</h2>
     <p class="subtitle">Match your situation to the right tool.</p>
     <div class="scenarios">
+      <div class="scenario" style="border-color:rgba(110,231,183,0.3);background:rgba(110,231,183,0.04);">
+        <div>
+          <div class="sc-if">If you need...</div>
+          <div class="sc-then">Kubernetes + replace Ingress-NGINX + centralized auth service per request</div>
+        </div>
+        <div class="sc-pick sc-kong">Kong OSS ★</div>
+      </div>
       <div class="scenario">
         <div>
           <div class="sc-if">If you need...</div>
@@ -1846,10 +1853,158 @@ table.matrix tbody tr:hover td:first-child { background:var(--bg3); }
   </div>
 </div>
 
+<!-- K8S RECOMMENDATION -->
+<div class="deep" style="border-bottom:1px solid var(--border);">
+  <div class="container">
+    <div class="section-label">Use-case recommendation</div>
+    <h2>Best for: K8s + Ingress-NGINX + Centralized Auth Service</h2>
+    <p class="subtitle">Microservices on Kubernetes where every service calls a shared auth project for identity validation.</p>
+
+    <!-- EOL Warning -->
+    <div style="background:rgba(251,146,60,0.08);border:1px solid rgba(251,146,60,0.3);border-radius:10px;padding:16px 20px;margin-bottom:24px;display:flex;gap:14px;align-items:flex-start;">
+      <span style="font-size:20px;flex-shrink:0;">⚠️</span>
+      <div>
+        <div style="font-size:13px;font-weight:600;color:var(--accent4);margin-bottom:4px;">Ingress-NGINX reached EOL — March 2026</div>
+        <div style="font-size:13px;color:#b0b0c8;line-height:1.6;">No further security patches, bug fixes, or Kubernetes version compatibility. New clusters should not use it. Existing clusters need a migration plan. <strong style="color:var(--text);">Kong's Kubernetes Ingress Controller (KIC)</strong> is the cleanest upgrade path — same routing model, active patches, full Gateway API support.</div>
+      </div>
+    </div>
+
+    <!-- Winner card -->
+    <div style="background:rgba(110,231,183,0.05);border:2px solid rgba(110,231,183,0.3);border-radius:12px;padding:24px;margin-bottom:24px;">
+      <div style="display:flex;align-items:center;gap:12px;margin-bottom:12px;">
+        <div style="font-family:var(--font-head);font-size:22px;font-weight:800;color:var(--accent);">Kong OSS</div>
+        <span class="badge b-perf">★ Best fit</span>
+        <span class="badge b-k8s">K8s Ingress Controller</span>
+        <span class="badge b-easy">Auth plugin built-in</span>
+      </div>
+      <p style="font-size:14px;color:#b0b0c8;line-height:1.65;margin-bottom:16px;">Kong solves both problems at once: it replaces Ingress-NGINX as your cluster ingress controller <em>and</em> centralizes auth validation via plugins — so your microservices never call the auth service themselves. Every request is intercepted, validated against your auth service, and only forwarded if it passes.</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+        <div>
+          <div class="gw-section-title">Why Kong wins for this setup</div>
+          <ul class="pro-con-list">
+            <li><span class="pro">+</span><span>Kong Ingress Controller directly replaces Ingress-NGINX — same Ingress resource model</span></li>
+            <li><span class="pro">+</span><span><code style="font-family:var(--font-mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px;">openid-connect</code> plugin calls your auth service per-request — no code in each microservice</span></li>
+            <li><span class="pro">+</span><span>Injects user identity headers (<code style="font-family:var(--font-mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px;">X-User-Id</code>, <code style="font-family:var(--font-mono);font-size:11px;background:var(--bg3);padding:1px 5px;border-radius:3px;">X-User-Role</code>) to downstream services automatically</span></li>
+            <li><span class="pro">+</span><span>15+ auth plugins (JWT, OAuth2, OIDC, API key, mTLS, LDAP) — covers any auth pattern your auth service uses</span></li>
+            <li><span class="pro">+</span><span>Rate limiting, circuit breaker, logging all at the gateway — microservices stay lean</span></li>
+            <li><span class="pro">+</span><span>Active Gateway API support — future-proof migration path built in</span></li>
+          </ul>
+        </div>
+        <div>
+          <div class="gw-section-title">Request flow with Kong</div>
+          <div style="font-family:var(--font-mono);font-size:11px;color:var(--muted);line-height:2;background:var(--bg3);padding:14px 16px;border-radius:8px;border:1px solid var(--border);">
+            <span style="color:var(--accent5);">Client</span><br>
+            &nbsp;&nbsp;↓ HTTPS request<br>
+            <span style="color:var(--accent);">Kong Gateway (KIC)</span><br>
+            &nbsp;&nbsp;↓ calls auth-svc /validate<br>
+            <span style="color:var(--yellow);">Auth Service</span> → 200 OK / 401<br>
+            &nbsp;&nbsp;↓ forward + inject user headers<br>
+            <span style="color:var(--accent2);">Order Svc / Product Svc / …</span><br>
+            &nbsp;&nbsp;↓ trust headers, no auth code<br>
+            <span style="color:var(--muted);">Response back to client</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Why not the others -->
+    <div class="gw-section-title" style="margin-bottom:12px;">Why the others don't fit as well</div>
+    <div class="table-wrap" style="margin-bottom:24px;">
+      <table class="comp">
+        <thead>
+          <tr><th>Gateway</th><th>K8s ingress replacement?</th><th>Centralized auth plugin?</th><th>Problem for this setup</th></tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td>APISIX</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="y">✅</span></td>
+            <td style="font-size:12px;color:var(--muted);">Excellent alternative — slightly more etcd ops overhead, smaller community for K8s auth examples</td>
+          </tr>
+          <tr>
+            <td>Envoy Gateway</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td style="font-size:12px;color:var(--muted);">Pure infra/traffic layer — no built-in auth plugin, no API key management; needs another layer on top</td>
+          </tr>
+          <tr>
+            <td>Traefik</td>
+            <td><span class="y">✅</span></td>
+            <td><span class="p">🟡</span></td>
+            <td style="font-size:12px;color:var(--muted);">ForwardAuth middleware calls external auth, but limited auth plugin depth; enterprise features need paid plan</td>
+          </tr>
+          <tr>
+            <td>KrakenD</td>
+            <td><span class="n">➖</span></td>
+            <td><span class="p">🟡</span></td>
+            <td style="font-size:12px;color:var(--muted);">Stateless + JSON config — great for BFF/aggregation but not a K8s ingress controller; config reload requires restart</td>
+          </tr>
+          <tr>
+            <td>Tyk</td>
+            <td><span class="p">🟡</span></td>
+            <td><span class="y">✅</span></td>
+            <td style="font-size:12px;color:var(--muted);">Full APIM suite — overkill for pure microservice routing; MongoDB + Redis required</td>
+          </tr>
+          <tr>
+            <td>Gravitee</td>
+            <td><span class="n">➖</span></td>
+            <td><span class="y">✅</span></td>
+            <td style="font-size:12px;color:var(--muted);">Not a K8s ingress controller; high JVM memory overhead; best when you need async/Kafka APIs</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- Migration steps -->
+    <div class="gw-section-title" style="margin-bottom:12px;">Migration from Ingress-NGINX → Kong KIC</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+      <div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:10px;">Step-by-step — your existing Ingress resources keep working:</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:#b0b0c8;line-height:1.9;background:var(--bg3);padding:14px 16px;border-radius:8px;border:1px solid var(--border);">
+          <span style="color:var(--muted);"># 1. Install Kong Ingress Controller</span><br>
+          helm repo add kong https://charts.konghq.com<br>
+          helm install kong kong/ingress \<br>
+          &nbsp;&nbsp;-n kong --create-namespace<br><br>
+          <span style="color:var(--muted);"># 2. Point Ingress resources at Kong</span><br>
+          kubectl annotate ingress my-ingress \<br>
+          &nbsp;&nbsp;kubernetes.io/ingress.class=kong<br><br>
+          <span style="color:var(--muted);"># 3. Add auth plugin (calls auth-svc)</span><br>
+          kubectl apply -f kong-auth-plugin.yaml<br><br>
+          <span style="color:var(--muted);"># 4. Remove Ingress-NGINX safely</span><br>
+          helm uninstall ingress-nginx
+        </div>
+      </div>
+      <div>
+        <div style="font-size:13px;color:var(--muted);margin-bottom:10px;">Kong plugin config — calls your auth service per-request:</div>
+        <div style="font-family:var(--font-mono);font-size:11px;color:#b0b0c8;line-height:1.9;background:var(--bg3);padding:14px 16px;border-radius:8px;border:1px solid var(--border);">
+          <span style="color:var(--accent5);">apiVersion</span>: configuration.konghq.com/v1<br>
+          <span style="color:var(--accent5);">kind</span>: KongPlugin<br>
+          <span style="color:var(--accent5);">metadata</span>:<br>
+          &nbsp;&nbsp;name: auth-validator<br>
+          &nbsp;&nbsp;annotations:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;kubernetes.io/ingress.class: kong<br>
+          <span style="color:var(--accent5);">plugin</span>: openid-connect<br>
+          <span style="color:var(--accent5);">config</span>:<br>
+          &nbsp;&nbsp;auth_methods: [bearer, introspection]<br>
+          &nbsp;&nbsp;introspection_endpoint:<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;http://auth-svc.default.svc/validate<br>
+          &nbsp;&nbsp;upstream_headers_claims: [sub, role]
+        </div>
+      </div>
+    </div>
+
+    <!-- Runner-up callout -->
+    <div style="margin-top:20px;background:rgba(129,140,248,0.05);border:1px solid rgba(129,140,248,0.2);border-radius:10px;padding:16px 20px;">
+      <div style="font-size:13px;font-weight:600;color:var(--accent2);margin-bottom:6px;">Runner-up: Apache APISIX</div>
+      <div style="font-size:13px;color:#b0b0c8;line-height:1.6;">If you want sub-millisecond latency and are comfortable running etcd in HA, APISIX is an excellent alternative — same Kubernetes Ingress Controller pattern, 10+ auth plugins, and dynamic config without restarts. Choose APISIX if you're handling 50K+ RPS per node and latency is the top priority. Choose Kong if you want the larger community and more auth plugin examples.</div>
+    </div>
+  </div>
+</div>
+
 <!-- FOOTER -->
 <div class="footer">
   <div class="footer-note">Free API Gateways · 2026 Edition · All gateways are self-hosted, open-source</div>
-  <div class="footer-note">Data from official docs, benchmarks, community reviews</div>
+  <div class="footer-note">Auth · Performance · Scalability · K8s Microservice Recommendation · Data from official docs &amp; benchmarks</div>
 </div>
 
 <script>
